@@ -9,10 +9,26 @@ class Teacher(models.Model):
     password = models.CharField(max_length=100)
     qualification = models.CharField(max_length=200)
     mobile_no = models.CharField(max_length=100)
+    profile_img = models.ImageField(upload_to='teacher_profile_imgs/', null=True, blank=True)
     skills = models.CharField(max_length=100)
 
     class Meta:
         verbose_name_plural = "1. Teachers"
+
+    # Total Teacher Courses
+    def total_teacher_courses(self):
+        total_courses=Category.objects.filter(teacher=self).count()
+        return total_courses
+    
+    # total Teacher Chapters
+    def total_teacher_chapters(self):
+        total_chapters=Chapter.objects.filter(course__teacher=self).count()
+        return total_chapters
+    
+    # Total Teacher students
+    def total_teacher_students(self):
+        total_students=StudentCourseEnrollment.objects.filter(course__teacher=self).count()
+        return total_students
 
 # CourseCategory Model
 class CourseCategory(models.Model):
@@ -27,8 +43,8 @@ class CourseCategory(models.Model):
 
 # Course Model
 class Category(models.Model):
-    category = models.ForeignKey(CourseCategory,on_delete=models.CASCADE,null=True)
-    teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE,null=True,related_name='teacher_courses')
+    category = models.ForeignKey(CourseCategory,on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE,related_name='teacher_courses')
     title = models.CharField(max_length=100)
     description =  models.TextField()
     featured_img =models.ImageField(upload_to='course_imgs/',null=True,blank=True)
@@ -38,7 +54,7 @@ class Category(models.Model):
         verbose_name_plural = "3. Categories"
     
     def total_enrolled_student(self):
-        total_enrolled_student = StudentCourseEnrollment.objects.filter(course=self).count()
+        total_enrolled_student = StudentCourseEnrollment.objects.filter(course_id=self).count()
         return total_enrolled_student
 
     def __def__(self):
@@ -63,6 +79,7 @@ class Student(models.Model):
     password = models.CharField(max_length=100)
     username = models.CharField(max_length=200)
     interested_categories = models.TextField()
+    student_profile_img = models.ImageField(upload_to='teacher_profile_imgs/', null=True, blank=True)
 
     def __str__(self):
         return self.full_name
@@ -78,6 +95,6 @@ class StudentCourseEnrollment(models.Model):
 
     class Meta:
         verbose_name_plural = "6 .Enrolled Courses"
-    
+
     def __str__(self):
         return f"{self.course}-{self.student}"

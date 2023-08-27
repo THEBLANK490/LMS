@@ -86,12 +86,13 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'LMS-django',
+        'NAME': 'lms',
         'USER': 'root',
         'PASSWORD': 'NegativeConjunction490',
         'HOST':'localhost',
         'PORT':'3306',
     }
+
 }
 
 

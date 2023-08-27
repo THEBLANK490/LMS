@@ -4,9 +4,14 @@ from . import models
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Teacher
-        fields = ['id','full_name','detail','email','password','qualification','mobile_no','skills','teacher_courses']
+        fields = ['id','full_name','detail','email','password','qualification','mobile_no','skills','teacher_courses','profile_img']
         depth = 1
     
+class TeacherDashboardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Teacher
+        fields = ['total_teacher_courses','total_teacher_chapters','total_teacher_students']
+
 
 class CourseCategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,9 +32,10 @@ class ChapterSerializer(serializers.ModelSerializer):
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Student
-        fields = ['id','full_name','email','password','username','interested_categories']
+        fields = ['id','full_name','email','password','username','interested_categories','student_profile_img']
 
 class StudentCourseEnrollSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.StudentCourseEnrollment
         fields = ['id','student','course','enrolled_time']
+        depth =1
