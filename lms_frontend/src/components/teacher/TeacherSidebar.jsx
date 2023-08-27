@@ -1,7 +1,21 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2';
 
 const TeacherSidebar = () => {
+    const navigate = useNavigate();
+    const teacherlogout = () => {
+        localStorage.setItem('teacherLoginStatus',false)
+        localStorage.removeItem('teacherId');
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Logged Out!!!',
+        });
+        navigate("/teacher-login"); 
+        
+      }
+      
   return (
     <>
      <table className="min-w-full divide-y divide-gray-200 ">
@@ -42,13 +56,8 @@ const TeacherSidebar = () => {
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap flex justify-between">
-                                    <Link to='/teacher-change-password'>Change Password</Link>
-                                </td>
-                            </tr>
-                            <tr>
                                 <td className="px-6 py-4 text-sm text-red-800 font-semibold whitespace-nowrap flex justify-between">
-                                    <Link to='/teacher-login'>Logout</Link>
+                                    <Link to='/teacher-login' onClick={teacherlogout}>Logout</Link>
                                 </td>
                             </tr>
                         </tbody>

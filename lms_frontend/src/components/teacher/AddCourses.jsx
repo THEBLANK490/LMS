@@ -20,7 +20,7 @@ const AddCourses = () => {
         try {
             axios.get(baseUrl+'/category')
             .then((res)=>{
-                    setCats(res.data);
+                setCats(res.data);
             })
         } catch (error) {
             console.log(error);
@@ -45,26 +45,25 @@ const AddCourses = () => {
     const handleSubmit =  (e) => {
         e.preventDefault();
         const teacherId = localStorage.getItem('teacherId');
-        // const category = await courseData.category
+        const categoryId = parseInt(courseData.category);
         const formDatas = new FormData();
         console.log(courseData.category); 
-        console.log(typeof(courseData.category)); 
         console.log(teacherId);
-        formDatas.append('category', parseInt(courseData.category));
-        formDatas.append('teacher', parseInt(teacherId));
+        formDatas.append('category', categoryId);
+        formDatas.append('teacherId', parseInt(teacherId));
         formDatas.append('title', courseData.title);
         formDatas.append('description',courseData.description)
         formDatas.append('featured_img',courseData.featured_img,courseData.featured_img.name)
         formDatas.append('languages',courseData.languages)
 
         try {
-             axios.put(baseUrl+'/course/',formDatas, {
+             axios.post(baseUrl+'/course/',formDatas, {
                 headers: {
                   'Content-Type': 'multipart/form-data'
                 }
             }).then((res) => {
                 console.log(res.data);
-                // window.location.href='/add-courses';
+                window.location.href='/add-courses';
             })
         } catch (error) {
             console.log(error);

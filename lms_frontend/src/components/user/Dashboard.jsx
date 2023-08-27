@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "./Sidebar";
 
+
 const Dashboard = () => {
     return (
         <>
@@ -11,7 +12,7 @@ const Dashboard = () => {
                 </div>
                 {/* Right Side wala */}
                 <div className="w-11/12">
-                    Dashboard
+                    User Dashboard
                 </div>
             </div>
         </>

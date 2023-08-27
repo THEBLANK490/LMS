@@ -15,6 +15,7 @@ export default function Navbar() {
 
   };
   
+  
   const toggleTeacherMenu = () => {
     setIsOpenTeacher(!isOpenTeacher);
   }
@@ -121,11 +122,12 @@ export default function Navbar() {
                 <Link to='/all-courses'>Courses</Link>
               </li>
               <li className="text-gray-600 hover:text-blue-600">
-                <Link to="/about">About US</Link>
+                <Link to="/teachers">Teachers</Link>
               </li>
               <li className="text-gray-600 hover:text-blue-600">
-                <a href="/try">Try code</a>
+                <Link to="/about">About US</Link>
               </li>
+            
 
               {/* teacher */}
               {studentLoginStatus === 'false' && <>

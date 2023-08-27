@@ -18,7 +18,7 @@ const AllCourses = () => {
   // fetch courses when we load
   useEffect(()=>{
       try {
-          axios.get(baseUrl+'/course/')
+          axios.get(baseUrl+'/courses/')
           .then((res) => {
             console.log(res.data);
               setCourseData(res.data);

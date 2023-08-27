@@ -17,33 +17,31 @@ import axios from "axios";
 const baseUrl = "http://127.0.0.1:8000/api";
 const Home = () => {
   const [courseData, setCourseData] = useState([]);
+  const [teacherData, setTeacherData] = useState([]);
 
   // fetch courses when we load
   useEffect(() => {
     document.title = "LMS | Home";
     try {
-      axios.get(baseUrl + "/course/?result=4").then((res) => {
-        console.log(res.data);
+      // axios.get(baseUrl + "/course/?result=4").then((res) => {
+      axios.get(baseUrl + "/course-get/?result=4").then((res) => {
         setCourseData(res.data);
       });
     } catch (error) {
       console.log(error);
     }
+
+    try {
+      // axios.get(baseUrl + "/course/?result=4").then((res) => {
+      axios.get(baseUrl + "/teacher-get/?result=4").then((res) => {
+        setTeacherData(res.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
   }, []);
 
-  // Array of card data
-  // const cardData = [
-  //   { title: "Card 1", content: "Lorem ipsum dolor sit amet." },
-  //   { title: "Card 2", content: "Consectetur adipiscing elit." },
-  //   { title: "Card 3", content: "Sed do eiusmod tempor incididunt." },
-  //   { title: "Card 3", content: "Sed do eiusmod tempor incididunt." },
-  // ];
-  const popularCourse = [
-    { title: "Course 1", content: "Lorem ipsum dolor sit amet." },
-    { title: "Course 1", content: "Lorem ipsum dolor sit amet." },
-    { title: "Course 1", content: "Lorem ipsum dolor sit amet." },
-    { title: "Course 1", content: "Lorem ipsum dolor sit amet." },
-  ];
   return (
     <>
       <Carousels />
@@ -82,38 +80,40 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Popular Courses */}
-      <div className="flex justify-between mx-8 mt-8">
-        <h2 className="text-2xl font-bold ml-16">Popular Courses</h2>
-        <Link to="/popular-courses"> See More</Link>
-      </div>
-      <div className=" overflow-x-hidden ">
-        <div className="m-auto flex flex-row justify-center items-center">
-          {popularCourse.map((card, index) => (
-            <PopularCards
-              key={index}
-              title={card.title}
-              content={card.content}
-            />
-          ))}
-        </div>
-      </div>
-
       {/* Teacher */}
       <div className="flex justify-between mx-8 mt-8">
         <h2 className="text-2xl font-bold ml-16">Teachers</h2>
-        <Link to="/popular-teachers"> See More</Link>
+        <Link to="/teachers"> See More</Link>
       </div>
       <div className=" overflow-x-hidden ">
         <div className="m-auto flex flex-row justify-center items-center">
-          {popularCourse.map((card, index) => (
-            <TeacherCards
-              key={index}
-              title={card.title}
-              content={card.content}
-            />
+        {teacherData && teacherData.map((teacher,index)=>(
+            <Card className="mt-12 w-72 ml-8 min-w-min" key={index}>
+            <CardHeader color="blue-gray" className="relative h-56">
+              <Link to={"/teacher-detail/"+teacher.id}>
+                <img
+                  src={teacher.profile_img}
+                  alt={teacher.full_name}
+                  className='h-full w-full'
+                  
+                />
+              </Link>
+            </CardHeader>
+            <CardBody>
+              <Typography variant="h5" color="blue-gray" className="mb-2">
+                {teacher.full_name}
+              </Typography>
+              <Typography>{teacher.qualification}</Typography>
+            </CardBody>
+            <CardFooter className="pt-0">
+              <Button>
+                <Link to={"/teacher-detail/"+teacher.id}>Read More</Link>
+              </Button>
+            </CardFooter>
+          </Card>
           ))}
         </div>
+
       </div>
 
       {/* Student Testomonial */}

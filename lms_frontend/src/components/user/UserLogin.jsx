@@ -10,10 +10,15 @@ const Login = () => {
         'password':'',
     })
     const [errorMsg,setErrorMsg]=useState('');
+    const [showLogin,setShowLogin] =useState('false');
 
     useEffect(()=>{
         document.title = 'User Login';
         const studentLoginStatus = localStorage.getItem('studentLoginStatus')
+        const teacherLoginStatus = localStorage.getItem('teacherLoginStatus')
+        if(teacherLoginStatus === 'true'){
+            setShowLogin('true')
+        }
         if(studentLoginStatus === 'true'){
             navigate('/');
         }
@@ -28,6 +33,7 @@ const Login = () => {
     }
 
     const handleSubmit = async () => {
+        if(showLogin==='false'){
         const studentFormData = new FormData();
         studentFormData.append('email', studentLoginData.email);
         studentFormData.append('password',studentLoginData.password);
@@ -48,13 +54,16 @@ const Login = () => {
             console.log(error);
         } 
     }
+    }
     return (
         <>
+        
            <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
                 <div>
                         <h3 className="text-4xl font-bold text-purple-600">UserLogin</h3>
                 </div>
                     <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
+                        {showLogin === 'true' && <p className="text-red-700 text-center mb-2">Cannot Login as Teacher and User at same time</p>}
                         {errorMsg && <p className="text-red-700 text-center ">{errorMsg}</p>}
                     {/* <form className="mt-6" method="post" onSubmit={handleSubmit}> */}
                         <div className="mb-2">
@@ -79,22 +88,7 @@ const Login = () => {
                                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                             />
                         </div>
-                        <div className="flex flex-row justify-between">
-                        <div className="mb-2 flex">
-                            <input
-                                type="checkbox"
-                                className=" px-4 py-2"
-                            />
-                            <label
-                                className="block pl-2 text-sm font-semibold text-gray-800"
-                            >
-                                Remember me
-                            </label>
-                        </div>
-                        <a href="#" className="text-xs text-purple-600 hover:underline">
-                            Forget Password?
-                        </a>
-                        </div>
+                        
                         <div className="mt-6">
                             <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
                             onClick={handleSubmit}>
@@ -115,7 +109,6 @@ const Login = () => {
                     </p>
                 </div>
             </div>
-            
         </>
     );
 };

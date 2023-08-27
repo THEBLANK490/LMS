@@ -13,6 +13,8 @@ const TeacherRegister = () => {
     'qualification': "",
     "mobile_no": "",
     'skills': "",
+    'prev_profile_img':'',
+    'profile_img':'',
     'status': "",
   });
 
@@ -37,6 +39,13 @@ const TeacherRegister = () => {
 
     });
   };
+  const handleFileChange = (e) => {
+    setTeacherData({
+        ...teacherData,
+        [e.target.name]:e.target.files[0]
+    })
+    
+}
   const handleConfirmChange = (e) => {
     setRePass({
       'confirm_password': e.target.value,
@@ -65,11 +74,13 @@ const TeacherRegister = () => {
         teacherFormData.append('email', teacherData.email)
         teacherFormData.append('password', teacherData.password)
         teacherFormData.append('qualification', teacherData.qualification)
-        teacherFormData.append('mobile_no', teacherData.mobile_number)
+        teacherFormData.append('mobile_no', teacherData.mobile_no)
         teacherFormData.append('skills', teacherData.skills)
+        teacherFormData.append('profile_img',teacherData.profile_img,teacherData.profile_img.name)
 
         setRePass({ 'confirm_password': '' });
-        if (teacherData.password !== repass.confirm_password) {
+        if (teacherData.password !== repass.confirm_password) 
+        {
           setRePass({
             'confirm_password': '',
             'status': 'error'
@@ -82,6 +93,8 @@ const TeacherRegister = () => {
               'qualification': "",
               "mobile_no": "",
               'skills': "",
+              'profile_img':"",
+              'prev_profile_img':"",
             }
           );
           Swal.fire({
@@ -93,7 +106,6 @@ const TeacherRegister = () => {
         } else {
           try {
             await axios.post(baseUrl,teacherFormData).then((response) => {
-              console.log(response);
               setTeacherData(
                 {
                   'full_name': "",
@@ -218,6 +230,14 @@ const TeacherRegister = () => {
                 type="text" name="mobile_no" value={teacherData.mobile_no} onChange={handleChange}
                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40" required
               />
+            </div>
+
+            <div className="mb-6">
+                            <label  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile Image</label>
+                            <input type="file" name="profile_img" id='video' className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"onChange={handleFileChange}/>
+                            {teacherData.prev_profile_img && 
+                                <img src={teacherData.prev_profile_img} alt="" className="h-32" />
+                            }
             </div>
 
             <div className="mb-2">

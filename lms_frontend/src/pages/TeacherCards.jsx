@@ -28,10 +28,6 @@ const TeacherCards = ({ title, content }) => {
       <CardFooter className="pt-0">
         <Button>Read More</Button>
         <hr className='h-px my-3 bg-gray-800 '/>
-      <div className="flex justify-between p-2 ">
-          <p>Rating: 4.5/5</p>
-          <p>Views:46782</p>
-        </div>
       </CardFooter>
     </Card>
     </Link>

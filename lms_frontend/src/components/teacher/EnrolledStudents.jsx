@@ -5,14 +5,14 @@ import axios from 'axios';
 
 
 const baseUrl='http://127.0.0.1:8000/api'; 
-const MyUsers = () => {
+const EnrolledStudents = () => {
     const[studentData,setStudentData] = useState([]);
-    const teacherId = localStorage.getItem('teacherId');
+    const {course_id} = useParams();
 
     // fetch courses when we load
     useEffect(()=>{
         try {
-            axios.get(baseUrl+'/fetch-all-enroll-students/'+teacherId)
+            axios.get(baseUrl+'/fetch-enroll-students/'+course_id)
             .then((res) => {
                 setStudentData(res.data);
             })
@@ -30,7 +30,7 @@ const MyUsers = () => {
             <div className="ml-2 w-11/12"> 
 
                 <h1 className="px-6 py-2 text-xl text-gray-800 bg-gray-200  flex justify-between">
-                    All Student List
+                    Enrolled Student List
                 </h1>
                 {/* Content */}
                 <div className="flex flex-col ">
@@ -44,7 +44,7 @@ const MyUsers = () => {
                                             <th scope="col" className=" px-6 py-4">Name</th>
                                             <th scope="col" className=" px-6 py-4">Email</th>
                                             <th scope="col" className=" px-6 py-4">UserName</th>
-                                            <th scope="col" className=" px-6 py-4">Enrolled Course</th>
+                                            <th scope="col" className=" px-6 py-4">Interested Categories</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -64,8 +64,9 @@ const MyUsers = () => {
                                                     </td>
 
                                                     <td  className="whitespace-nowrap  px-6 py-4"> 
-                                                        {row.course.title}
+                                                        {row.student.interested_categories}
                                                     </td>
+
                                                 </tr> 
                                             </>
                                         )}
@@ -81,4 +82,4 @@ const MyUsers = () => {
     )
 }
 
-export default MyUsers
+export default EnrolledStudents

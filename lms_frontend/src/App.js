@@ -21,7 +21,6 @@ import TeacherLogin from "./components/teacher/TeacherLogin";
 import TeacherRegister from "./components/teacher/TeacherRegister";
 import TeacherDashboard from "./components/teacher/TeacherDashboard";
 import TeacherProfileSetting from "./components/teacher/TeacherProfileSetting";
-import TeacherChangePassword from "./components/teacher/TeacherChangePassword";
 import TeacherMyCourses from "./components/teacher/TeacherMyCourses";
 import MyUsers from "./components/teacher/MyUsers";
 import AddCourses from "./components/teacher/AddCourses";
@@ -29,14 +28,14 @@ import TeacherDetail from "./components/TeacherDetail";
 
 import Sliders from "./pages/Sliders";
 import AllCourses from "./components/AllCourses";
-import PopularCourses from "./components/PopularCourses";
-import PopularTeachers from "./components/PopularTeachers";
 import CategoryCourses from "./components/CategoryCourses";
 import AddChapters from "./components/teacher/AddChapters";
 import Try from "./pages/Try";
 import CourseChapters from "./components/teacher/CourseChapters";
 import EditChapters from "./components/teacher/EditChapters";
 import EditCourse from "./components/teacher/EditCourse";
+import EnrolledStudents from "./components/teacher/EnrolledStudents";
+import HomeTeachers from "./components/HomeTeachers";
 
 
 function App() {
@@ -65,6 +64,7 @@ function App() {
         <Route path="/teacher-register" element={<TeacherRegister/>}></Route>
         <Route path="/teacher-dashboard" element={<TeacherDashboard/>}></Route>
         <Route path="/teacher-my-courses" element={<TeacherMyCourses/>}></Route>
+        <Route path="/enrolled-students/:course_id" element={<EnrolledStudents/>}></Route>
         <Route path="/my-users" element={<MyUsers/>}></Route>
         <Route path="/add-courses" element={<AddCourses/>}></Route>
         <Route path="/edit-courses/:course_id" element={<EditCourse/>}></Route>
@@ -72,12 +72,10 @@ function App() {
         <Route path="/all-chapters/:course_id" element={<CourseChapters/>}></Route>
         <Route path="/edit-chapters/:chapter_id" element={<EditChapters/>}></Route>
         <Route path="/teacher-profile-setting" element={<TeacherProfileSetting/>}></Route>
-        <Route path="/teacher-change-password" element={<TeacherChangePassword/>}></Route>
 
         {/* List Courses */}
         <Route path="/all-courses" element={<AllCourses/>}></Route>
-        <Route path="/popular-courses" element={<PopularCourses/>}></Route>
-        <Route path="/popular-teachers" element={<PopularTeachers/>}></Route>
+        <Route path="/teachers" element={<HomeTeachers/>}></Route>
         <Route path="/category-courses" element={<CategoryCourses/>}></Route>
 
 

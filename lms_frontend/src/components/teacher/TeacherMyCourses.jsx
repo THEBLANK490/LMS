@@ -7,6 +7,7 @@ import axios from 'axios';
 const baseUrl='http://127.0.0.1:8000/api'; 
 const TeacherMyCourses = () => {
     const[courseData,setCourseData] = useState([]);
+    const[totalResult,setTotalResult] = useState(0);
     const teacherId = localStorage.getItem('teacherId');
     const Swal = require('sweetalert2')
     
@@ -17,6 +18,7 @@ const TeacherMyCourses = () => {
         try {
             axios.get(baseUrl+'/teacher-courses/'+teacherId)
             .then((res) => {
+                setTotalResult(res.data.length);
                 setCourseData(res.data);
             })
         } catch (error) {
@@ -72,6 +74,49 @@ const TeacherMyCourses = () => {
     //       })
     // }
 
+    const handleDeleteClick = (course_id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                try {
+                    axios.delete(baseUrl+'/course/'+course_id)
+                    .then((res) =>{
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                          )
+                          try {
+                            axios.get(baseUrl+'/teacher-courses/'+teacherId)
+                            .then((res) => {
+                                setTotalResult(res.data.length);
+                                setCourseData(res.data);
+                            })
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    })
+                   
+                } catch (error) {
+                    console.log(error);
+                    Swal.fire(
+                        'Delete Failed!',
+                        'Your file has not been deleted.',
+                        'Failed'
+                      )
+                }
+             
+            }
+          })
+    }
+ 
     return (
         <>
         <div className="container flex flex-row justify-center mt-3 ml-20 w-11/12">
@@ -81,7 +126,7 @@ const TeacherMyCourses = () => {
             <div className="ml-2 w-11/12"> 
 
                 <h1 className="px-6 py-2 text-xl text-gray-800 bg-gray-200  flex justify-between">
-                    My courses
+                    My courses({totalResult})
                 </h1>
                 {/* Content */}
                 <div className="flex flex-col ">
@@ -103,11 +148,16 @@ const TeacherMyCourses = () => {
                                              <>
                                                 <tr key={index} className="border-b dark:border-neutral-500">
                                                     <td key={index} className="whitespace-nowrap  px-6 py-4 text-blue-700"> <Link to={'/all-chapters/'+ course.id}>{course.title}</Link></td>
+
                                                     <td  className="whitespace-nowrap  px-6 py-4 flex items-center justify-center"><img src={course.featured_img} width="80" height="100" className='rounded' alt={course.title} /></td>
-                                                    <td  className="whitespace-nowrap  px-6 py-4"> <Link to='#'> {course.total_enrolled_student} </Link></td>
+
+                                                    <td  className="whitespace-nowrap text-blue-700 px-6 py-4"> <Link to={`/enrolled-students/` +course.id}> {course.total_enrolled_student} </Link></td>
+
                                                     <td  className="whitespace-nowrap  px-6 py-4"><Link to={'/add-chapters/'+course.id}><button type="button" className="focus:outline-none text-white bg-green-700 font-medium rounded-lg text-sm px-5 py-2.5  mb-2 ">Add Chapter </button></Link></td>
+
                                                     <td  className="whitespace-nowrap  px-6 py-4"><Link to={'/edit-courses/'+course.id}><button type="button" className="focus:outline-none text-white bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5  mb-2 ">Edit </button></Link></td>
-                                                    <td  className="whitespace-nowrap  px-6 py-4"><button type="button" className="focus:outline-none text-white bg-red-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Delete</button></td>
+
+                                                    <td  className="whitespace-nowrap  px-6 py-4"><button type="button" className="focus:outline-none text-white bg-red-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 " onClick={() => handleDeleteClick(course.id)}>Delete</button></td>
                                                 </tr> 
                                             </>
                                         )}
