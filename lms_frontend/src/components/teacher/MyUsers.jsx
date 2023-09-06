@@ -9,7 +9,7 @@ const MyUsers = () => {
     const[studentData,setStudentData] = useState([]);
     const teacherId = localStorage.getItem('teacherId');
 
-    // fetch courses when we load
+    // fetch students and courses where they have registered when we load
     useEffect(()=>{
         try {
             axios.get(baseUrl+'/fetch-all-enroll-students/'+teacherId)

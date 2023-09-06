@@ -227,7 +227,7 @@ const TeacherProfileSetting = () => {
             </div>
             <div className="mb-6">
                             <label  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile Image</label>
-                            <input type="file" name="profile_img" id='video' className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"onChange={handleFileChange}/>
+                            <input type="file" name="profile_img" id='video' className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" onChange={handleFileChange}/>
                             {teacherData.prev_profile_img && 
                                 <img src={teacherData.prev_profile_img} alt="" className="h-32" />
                             }

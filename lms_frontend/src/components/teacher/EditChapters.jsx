@@ -12,6 +12,7 @@ const EditChapters = () => {
         prev_video:'',
         video: '',
         remarks: '',
+        material: '',
     })
     const { chapter_id } = useParams();
     const navigate = useNavigate();
@@ -64,6 +65,7 @@ const EditChapters = () => {
         formDatas.append('course', chapterData.course)
         formDatas.append('title', chapterData.title)
         formDatas.append('description', chapterData.description)
+        formDatas.append('material',chapterData.material)
         if(chapterData.video !== ''){
             formDatas.append('video', chapterData.video, chapterData.video.name)
         }
@@ -116,6 +118,10 @@ const EditChapters = () => {
                         <div className="mb-6">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
                             <textarea name="description" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " value={chapterData.description} onChange={handleChange} />
+                        </div>
+                        <div className="mb-6">
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Materials</label>
+                        <input type="file" name="material" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" onChange={handleFileChange} />
                         </div>
                         <div className="mb-6">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Video</label>

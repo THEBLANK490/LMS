@@ -1,20 +1,25 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2';
 
 const Sidebar = () => {
+    const navigate = useNavigate();
+    const userlogout = () => {
+        localStorage.setItem('studentLoginStatus',false)
+        localStorage.removeItem('student_id');
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Logged Out!!!',
+        });
+        navigate("/user-login"); 
+        
+      }
+      
   return (
     <>
      <table className="min-w-full divide-y divide-gray-200 ">
-                        {/* <thead className="bg-gray-50">
-                            <tr>
-                                <th
-                                    scope="col"
-                                    className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
-                                >
-                                    Dashboard
-                                </th>
-                            </tr>
-                        </thead> */}
+
                         <tbody className="divide-y divide-gray-200">
                             <tr>
                                 <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap flex justify-between">
@@ -28,12 +33,7 @@ const Sidebar = () => {
                             </tr>
                             <tr>
                                 <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap flex justify-between">
-                                    <Link to='/favorite-courses'>Favourite Courses</Link>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap flex justify-between">
-                                    <Link to='/recommended-courses'>Recommended Courses</Link>
+                                    <Link to='/favorite-courses'>Favorite Courses</Link>
                                 </td>
                             </tr>
                             <tr>
@@ -42,12 +42,7 @@ const Sidebar = () => {
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap flex justify-between">
-                                    <Link to='/change-password'>Change Password</Link>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="px-6 py-4 text-sm text-red-800 font-semibold whitespace-nowrap flex justify-between">
+                                <td className="px-6 py-4 text-sm text-red-800 font-semibold whitespace-nowrap flex justify-between" onClick={userlogout}>
                                     <Link to='/user-login'>Logout</Link>
                                 </td>
                             </tr>

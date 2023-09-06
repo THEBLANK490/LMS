@@ -12,9 +12,7 @@ import Register from "./components/user/UserRegister";
 import Dashboard from "./components/user/Dashboard";
 import MyCourses from "./components/user/MyCourses";
 import FavoriteCourses from "./components/user/FavoriteCourses";
-import RecommendedCourses from "./components/user/RecommendedCourses";
 import ProfileSetting from "./components/user/ProfileSetting";
-import ChangePassword from "./components/user/ChangePassword";
 
 // Teacher
 import TeacherLogin from "./components/teacher/TeacherLogin";
@@ -55,9 +53,7 @@ function App() {
         <Route path="/user-dashboard" element={<Dashboard/>}></Route>
         <Route path="/my-courses" element={<MyCourses/>}></Route>
         <Route path="/favorite-courses" element={<FavoriteCourses/>}></Route>
-        <Route path="/recommended-courses" element={<RecommendedCourses/>}></Route>
         <Route path="/profile-setting" element={<ProfileSetting/>}></Route>
-        <Route path="/change-password" element={<ChangePassword/>}></Route>
 
         {/* Teacher Routes */}
         <Route path="/teacher-login" element={<TeacherLogin/>}></Route>

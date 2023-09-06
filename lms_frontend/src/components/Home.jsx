@@ -10,8 +10,6 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import Sliders from "../pages/Sliders";
-import PopularCards from "../pages/PopularCards";
-import TeacherCards from "../pages/TeacherCards";
 import axios from "axios";
 
 const baseUrl = "http://127.0.0.1:8000/api";
@@ -23,7 +21,6 @@ const Home = () => {
   useEffect(() => {
     document.title = "LMS | Home";
     try {
-      // axios.get(baseUrl + "/course/?result=4").then((res) => {
       axios.get(baseUrl + "/course-get/?result=4").then((res) => {
         setCourseData(res.data);
       });
@@ -32,7 +29,6 @@ const Home = () => {
     }
 
     try {
-      // axios.get(baseUrl + "/course/?result=4").then((res) => {
       axios.get(baseUrl + "/teacher-get/?result=4").then((res) => {
         setTeacherData(res.data);
       });
