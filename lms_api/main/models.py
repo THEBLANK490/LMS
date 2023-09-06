@@ -15,6 +15,9 @@ class Teacher(models.Model):
     class Meta:
         verbose_name_plural = "1. Teachers"
 
+    def __str__(self):
+        return self.full_name
+
     # Total Teacher Courses
     def total_teacher_courses(self):
         total_courses=Category.objects.filter(teacher=self).count()
@@ -57,7 +60,7 @@ class Category(models.Model):
         total_enrolled_student = StudentCourseEnrollment.objects.filter(course_id=self).count()
         return total_enrolled_student
 
-    def __def__(self):
+    def __str__(self):
         return self.title
     
 
@@ -68,6 +71,7 @@ class Chapter(models.Model):
     description =  models.TextField()
     video =models.FileField(upload_to='chapter_videos/',null=True,blank=True)
     remarks = models.TextField(max_length=100)
+    material =models.FileField(upload_to='chapter_material/',null=True,blank=True)
 
     class Meta:
         verbose_name_plural = "4. Chapter"
@@ -87,6 +91,16 @@ class Student(models.Model):
     class Meta:
         verbose_name_plural = "5. Students"
 
+    # Total Student My Courses
+    def total_my_courses(self):
+        student_total_courses=StudentCourseEnrollment.objects.filter(student=self).count()
+        return student_total_courses
+    
+    # total Teacher Chapters
+    def total_favorite_chapters(self):
+        total_chapters=StudentFavoriteCourse.objects.filter(student=self).count()
+        return total_chapters
+
 # student Course Enrollment
 class StudentCourseEnrollment(models.Model):
     course = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='enrolled_courses')
@@ -98,3 +112,18 @@ class StudentCourseEnrollment(models.Model):
 
     def __str__(self):
         return f"{self.course}-{self.student}"
+    
+# Favorite course for student
+class StudentFavoriteCourse(models.Model):
+    course = models.ForeignKey(Category,on_delete=models.CASCADE)
+    student = models.ForeignKey(Student,on_delete=models.CASCADE)
+    status = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name_plural = "7 .Student Favorite Courses"
+    
+    def __str__(self):
+        return f"{self.course}-{self.student}"
+    
+
+    

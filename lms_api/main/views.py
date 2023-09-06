@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics
-from .serializers import TeacherSerializer, CourseCategorySerializer, CourseSerializer, ChapterSerializer, StudentSerializer,StudentCourseEnrollSerializer,TeacherDashboardSerializer
+from .serializers import TeacherSerializer, CourseCategorySerializer, CourseSerializer, ChapterSerializer, StudentSerializer,StudentCourseEnrollSerializer,TeacherDashboardSerializer,StudentFavoriteCourseSerializer,StudentDashboardSerializer
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.decorators import api_view
 from . import models
@@ -48,7 +48,6 @@ class TeacherDashboard(generics.RetrieveAPIView):
     queryset = models.Teacher.objects.all()
     serializer_class = TeacherDashboardSerializer
 
-
 @csrf_exempt
 def teacher_login (request):
     try:
@@ -73,6 +72,10 @@ def teacher_list(request):
         serializer = TeacherSerializer(qs, many=True)
         return Response(serializer.data)
 
+# class TeacherMaterialAdd(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = models.TeacherMaterialAdd.objects.all()
+#     serializer_class = TeacherMaterialAddSerializer
+
 class CategoryList(generics.ListCreateAPIView):
     queryset = models.CourseCategory.objects.all()
     serializer_class = CourseCategorySerializer
@@ -81,15 +84,6 @@ class CategoryList(generics.ListCreateAPIView):
 class CourseLists(generics.ListCreateAPIView):
     queryset = models.Category.objects.all()
     serializer_class = CourseSerializer
-
-
-    # def get_queryset(self):
-    #     qs= super().get_queryset()
-    #     if 'result' in self.request.GET:
-    #         limit = int (self.request.GET['result'])
-    #         qs = models.Category.objects.all().order_by('-id')[:limit]
-    #     return qs
-
 
 
 @csrf_exempt
@@ -132,9 +126,7 @@ def CourseList(request):
         return JsonResponse({'error': 'Invalid request method'})
     
 
-class CourseDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = models.Category.objects.all()
-    serializer_class = CourseSerializer
+
 
 class TeacherCourseList(generics.ListCreateAPIView):
     serializer_class = CourseSerializer
@@ -164,6 +156,10 @@ class CourseChapterList(generics.ListAPIView):
 class ChapterDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset= models.Chapter.objects.all()
     serializer_class = ChapterSerializer
+
+class CourseDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Category.objects.all()
+    serializer_class = CourseSerializer
 
 # student
 class StudentRegisterApiView(APIView):
@@ -196,6 +192,10 @@ def student_login (request):
             return JsonResponse({'bool':False})
     except ObjectDoesNotExist:
         return JsonResponse({'error': 'Invalid email or password'})
+    
+class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Student.objects.all()
+    serializer_class =StudentSerializer
     
 class StudentEnrollCourseList(generics.ListCreateAPIView):
     queryset = models.StudentCourseEnrollment.objects.all()
@@ -248,6 +248,57 @@ class EnrolledStudentList(generics.ListAPIView):
             teacher_id = self.kwargs['teacher_id']
             teacher = models.Teacher.objects.get(pk=teacher_id)
             return models.StudentCourseEnrollment.objects.filter(course__teacher=teacher).distinct()
+        elif 'student_id' in self.kwargs:
+            student_id = self.kwargs['student_id']
+            student = models.Student.objects.get(pk=student_id)
+            return models.StudentCourseEnrollment.objects.filter(student=student).distinct()
 
 
+class EnrolledStudentDelete(generics.DestroyAPIView):
+    queryset = models.StudentCourseEnrollment.objects.all()
+    serializer_class = StudentCourseEnrollSerializer
+
+class StudentFavoriteCourseList(generics.ListCreateAPIView):
+    queryset=models.StudentFavoriteCourse.objects.all()
+    serializer_class = StudentFavoriteCourseSerializer
+
+    def get_queryset(self):
+        if 'student_id' in self.kwargs:
+            student_id = self.kwargs['student_id']
+            student = models.Student.objects.get(pk=student_id)
+            return models.StudentFavoriteCourse.objects.filter(student=student).distinct()
+
+@csrf_exempt
+def remove_favorite_course(request,course_id,student_id):
+    student = models.Student.objects.filter(id=student_id).first()
+    course = models.Category.objects.filter(id=course_id).first() 
+    favoriteStatus = models.StudentFavoriteCourse.objects.filter(course=course,student=student).delete()
+    if favoriteStatus:
+        return JsonResponse({'bool':True})
+    else:
+        return JsonResponse({'bool':False})
+    
+def fetch_favorite_status(request,course_id,student_id):
+    student = models.Student.objects.filter(id=student_id).first()
+    course = models.Category.objects.filter(id=course_id).first() 
+    favoriteStatus = models.StudentFavoriteCourse.objects.filter(course=course,student=student).first()
+    if favoriteStatus and favoriteStatus.status == True:
+        return JsonResponse({'bool':True})
+    else:
+        return JsonResponse({'bool':False})
+        
+
+@csrf_exempt
+def remove_favorite_course_dashboard(request, id):
+    favorite_course = models.StudentFavoriteCourse.objects.filter(id=id).first()
+    if favorite_course:
+        favorite_course.delete()
+        return JsonResponse({'bool': True})
+    else:
+        return JsonResponse({'bool': False})
+    
+# for teacher Dashboard
+class StudentDashboard(generics.RetrieveAPIView):
+    queryset = models.Student.objects.all()
+    serializer_class = StudentDashboardSerializer
 
