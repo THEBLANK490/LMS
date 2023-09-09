@@ -20,6 +20,7 @@ const EditCourse = () => {
 
     // fetch the available courses to show in dropdown
     useEffect(() =>{
+        document.title = "LMS | Edit Course";
         try {
             axios.get(baseUrl+'/category/')
             .then((res)=>{

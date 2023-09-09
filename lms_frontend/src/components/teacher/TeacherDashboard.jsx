@@ -57,42 +57,42 @@ const TeacherDashboard = () => {
 
         <div className="w-11/12 text-center justify-between font-serif mb-16">
           <h1 className=" text-6xl text-orange-600 mb-12">Dashboard</h1>
-          <div class="flex w-full ml-8 mb-8">
-            <div class="flex-1 m-5 relative rounded bg-gray-200 shadow">
-              <div class="bg-green-500 pl-10 pr-10 pt-8 pb-8 ml-3 absolute top-0 -mt-4 -mr-4 rounded text-white fill-current shadow">
-                <i class="fas fa-envelope inline-block w-5"></i>
+          <div className="flex w-full ml-8 mb-8">
+            <div className="flex-1 m-5 relative rounded bg-gray-200 shadow">
+              <div className="bg-green-500 pl-10 pr-10 pt-8 pb-8 ml-3 absolute top-0 -mt-4 -mr-4 rounded text-white fill-current shadow">
+                <i className="fas fa-envelope inline-block w-5"></i>
               </div>
               <Link to='/teacher-my-courses'>
-              <div class="float-right top-0 right-0 m-3 ">
-                <div class="text-right text-sm hover:text-blue-700">Total Courses</div>
-                <div class="text-right text-3xl hover:text-blue-700">{dashboardData.total_teacher_courses}</div>
+              <div className="float-right top-0 right-0 m-3 ">
+                <div className="text-right text-sm hover:text-blue-700">Total Courses</div>
+                <div className="text-right text-3xl hover:text-blue-700">{dashboardData.total_teacher_courses}</div>
               </div>
               </Link>
             </div>
 
-            <div class="flex-1 m-5 relative rounded bg-gray-200 shadow">
-              <div class="bg-blue-500 pl-10 pr-10 pt-8 pb-8 ml-3 absolute top-0 -mt-4 -mr-4 rounded text-white fill-current shadow">
-                <i class="fas fa-envelope inline-block w-5"></i>
+            <div className="flex-1 m-5 relative rounded bg-gray-200 shadow">
+              <div className="bg-blue-500 pl-10 pr-10 pt-8 pb-8 ml-3 absolute top-0 -mt-4 -mr-4 rounded text-white fill-current shadow">
+                <i className="fas fa-envelope inline-block w-5"></i>
               </div>
 
             <Link to='/teacher-my-courses'>
-              <div class="float-right top-0 right-0 m-3">
-                <div class="text-right text-sm hover:text-blue-700">Total Chapters</div>
-                <div class="text-right text-3xl hover:text-blue-700">{dashboardData.total_teacher_chapters}</div>
+              <div className="float-right top-0 right-0 m-3">
+                <div className="text-right text-sm hover:text-blue-700">Total Chapters</div>
+                <div className="text-right text-3xl hover:text-blue-700">{dashboardData.total_teacher_chapters}</div>
               </div>
             </Link>
             </div>
 
 
-            <div class="flex-1 m-5 relative rounded bg-gray-200 shadow">
-              <div class="bg-red-500 pl-10 pr-10 pt-8 pb-8 ml-3 absolute top-0 -mt-4 -mr-4 rounded text-white fill-current shadow">
-                <i class="fas fa-envelope inline-block w-5"></i>
+            <div className="flex-1 m-5 relative rounded bg-gray-200 shadow">
+              <div className="bg-red-500 pl-10 pr-10 pt-8 pb-8 ml-3 absolute top-0 -mt-4 -mr-4 rounded text-white fill-current shadow">
+                <i className="fas fa-envelope inline-block w-5"></i>
               </div>
 
               <Link to='/my-users'>
-              <div class="float-right top-0 right-0 m-3">
-                <div class="text-right text-sm hover:text-blue-700">Total Student</div>
-                <div class="text-right text-3xl hover:text-blue-700">{dashboardData.total_teacher_students}</div>
+              <div className="float-right top-0 right-0 m-3">
+                <div className="text-right text-sm hover:text-blue-700">Total Student</div>
+                <div className="text-right text-3xl hover:text-blue-700">{dashboardData.total_teacher_students}</div>
               </div>
               </Link>
             </div>

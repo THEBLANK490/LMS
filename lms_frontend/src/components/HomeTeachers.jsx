@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Pagination from "../pages/Pagination";
 import {
   Card,
   CardHeader,
@@ -19,6 +18,7 @@ const HomeTeachers = () => {
   const [searchTxt, setSearchTxt] = useState("");
 
   useEffect(() => {
+    document.title = "LMS | All Teachers";
     fetchData();
     try {
       axios.get(baseUrl + "/teachers/").then((res) => {
@@ -149,7 +149,6 @@ const HomeTeachers = () => {
           </p>
         )}
       </div>
-      <Pagination />
     </>
   );
 };

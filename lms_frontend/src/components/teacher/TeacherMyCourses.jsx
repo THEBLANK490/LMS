@@ -15,6 +15,7 @@ const TeacherMyCourses = () => {
     
     // fetch courses when we load
     useEffect(()=>{
+        document.title = "LMS | Teacher Courses";
         try {
             axios.get(baseUrl+'/teacher-courses/'+teacherId)
             .then((res) => {
@@ -25,54 +26,6 @@ const TeacherMyCourses = () => {
             console.log(error);
         }
     },[])
-    // const course_id = courseData.length > 0 ? courseData[0].id : null;
-    // console.log(course_id);
-    // console.log(typeof(course_id));
-
-    // const handleDeleteClick = (chapter_id) => {
-    //     Swal.fire({
-    //         title: 'Are you sure?',
-    //         text: "You won't be able to revert this!",
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Yes, delete it!'
-    //       }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             try {
-    //                 axios.delete(baseUrl+'/course/'+course_id)
-    //                 .then((res) =>{
-    //                     Swal.fire(
-    //                         'Deleted!',
-    //                         'Your file has been deleted.',
-    //                         'success'
-    //                       )
-    //                       console.log("1");
-    //                     try {
-    //                         axios.get(baseUrl+'/course/'+course_id+'/')
-    //                         .then((res) => {
-    //                             setCourseData(res.data);
-    //                         })
-    //                     } catch (error) {
-    //                         console.log(error);
-    //                         console.log("bhitra ko catch ");
-    //                     }
-    //                 })
-                   
-    //             } catch (error) {
-    //                 console.log("last ko catch ");
-    //                 console.log(error);
-    //                 Swal.fire(
-    //                     'Delete Failed!',
-    //                     'Your file has not been deleted.',
-    //                     'Failed'
-    //                   )
-    //             }
-             
-    //         }
-    //       })
-    // }
 
     const handleDeleteClick = (course_id) => {
         Swal.fire({
@@ -145,9 +98,9 @@ const TeacherMyCourses = () => {
                                     </thead>
                                     <tbody>
                                         {courseData.map((course,index)=>
-                                             <>
+                                             
                                                 <tr key={index} className="border-b dark:border-neutral-500">
-                                                    <td key={index} className="whitespace-nowrap  px-6 py-4 text-blue-700"> <Link to={'/all-chapters/'+ course.id}>{course.title}</Link></td>
+                                                    <td  className="whitespace-nowrap  px-6 py-4 text-blue-700"> <Link to={'/all-chapters/'+ course.id}>{course.title}</Link></td>
 
                                                     <td  className="whitespace-nowrap  px-6 py-4 flex items-center justify-center"><img src={course.featured_img} width="80" height="100" className='rounded' alt={course.title} /></td>
 
@@ -159,7 +112,7 @@ const TeacherMyCourses = () => {
 
                                                     <td  className="whitespace-nowrap  px-6 py-4"><button type="button" className="focus:outline-none text-white bg-red-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 " onClick={() => handleDeleteClick(course.id)}>Delete</button></td>
                                                 </tr> 
-                                            </>
+                                            
                                         )}
 
                                     </tbody>

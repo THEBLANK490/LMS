@@ -16,6 +16,7 @@ const CourseChapters = () => {
 
     // fetch courses when we load
     useEffect(() => {
+        document.title = "LMS | Course Chapters";
         try {
             axios.get(baseUrl + '/course-chapters/' + course_id)
                 .then((res) => {
@@ -97,8 +98,8 @@ const CourseChapters = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {chapterData.map((chapter, index) => {
-                                                return <>
+                                            {chapterData.map((chapter, index) => 
+                                           
                                                     <tr key={chapter.id} className="border-b dark:border-neutral-500">
                                                         
                                                         <td className="whitespace-nowrap  px-6 py-4 text-blue-700"><Link to={"/edit-chapters/" + chapter.id} >{chapter.title}</Link></td>
@@ -120,8 +121,8 @@ const CourseChapters = () => {
 
                                                         <td className="whitespace-nowrap py-4"><button type="button" className="focus:outline-none text-white bg-red-700 font-medium rounded-lg text-sm px-5 py-2.5  mb-2 " onClick={() => handleDeleteClick(chapter.id)}>Delete</button></td>
                                                     </tr>
-                                                </>
-                                            })}
+                                                
+                                            )}
 
                                         </tbody>
                                     </table>

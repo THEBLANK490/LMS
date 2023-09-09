@@ -58,7 +58,6 @@ const TeacherLogin = () => {
                 </div>
                     <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
                         {errorMsg && <p className="text-red-700 text-center ">{errorMsg}</p>}
-                    {/* <form className="mt-6" method="post" onSubmit={handleSubmit}> */}
                         <div className="mb-2">
                             <label
                                 className="block text-sm font-semibold text-gray-800"
@@ -87,7 +86,6 @@ const TeacherLogin = () => {
                                 Login
                             </button>
                         </div>
-                    {/* </form> */}
 
                     <p className="mt-8 text-xs font-light text-center text-gray-700">
                         {" "}

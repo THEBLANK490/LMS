@@ -11,6 +11,7 @@ const MyCourses = () => {
 
         // fetch courses when we load
         useEffect(()=>{
+            document.title = "LMS | User Courses";
             try {
                 axios.get(baseUrl+'/fetch-enroll-courses/'+student_id)
                 .then((res) => {

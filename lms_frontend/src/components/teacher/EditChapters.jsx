@@ -37,6 +37,7 @@ const EditChapters = () => {
     }
 
     useEffect(() => {
+        document.title = "LMS | Edit Chapters";
         try {
             axios.get(baseUrl + '/chapter/' + chapter_id)
                 .then((res) => {
@@ -54,7 +55,6 @@ const EditChapters = () => {
             console.log(error);
         }
     }, [])
-    console.log(chapterData);
 
 
 

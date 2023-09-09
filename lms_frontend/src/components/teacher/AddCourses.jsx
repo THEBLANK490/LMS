@@ -17,6 +17,7 @@ const AddCourses = () => {
 
     // fetch the available courses to show in dropdown
     useEffect(() =>{
+        document.title = "LMS | Add Courses";
         try {
             axios.get(baseUrl+'/category')
             .then((res)=>{

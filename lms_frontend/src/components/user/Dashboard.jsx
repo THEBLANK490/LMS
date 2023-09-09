@@ -19,7 +19,7 @@ const Dashboard = () => {
       });
 
       useEffect(() => {
-        document.title = " Teacher Dashboard";
+        document.title = " User Dashboard";
         //Fetch current Student Data
         try {
             axios.get(baseUrl+'student/' + student_id)

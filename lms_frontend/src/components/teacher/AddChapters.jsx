@@ -12,6 +12,9 @@ const AddChapters = () => {
         video:'',
         remarks:'',
     })
+    useEffect(()=>{
+        document.title = "LMS | Add Chapters";
+    })
 
     // fetch the available courses to show in dropdown
   

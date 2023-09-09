@@ -11,6 +11,7 @@ const FavoriteCourses = () => {
 
         // fetch courses when we load
         useEffect(()=>{
+            document.title = "LMS | User Favorite Courses";
             try {
                 axios.get(baseUrl+'/fetch-favorite-courses/'+student_id)
                 .then((res) => {

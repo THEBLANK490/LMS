@@ -26,9 +26,7 @@ import TeacherDetail from "./components/TeacherDetail";
 
 import Sliders from "./pages/Sliders";
 import AllCourses from "./components/AllCourses";
-import CategoryCourses from "./components/CategoryCourses";
 import AddChapters from "./components/teacher/AddChapters";
-import Try from "./pages/Try";
 import CourseChapters from "./components/teacher/CourseChapters";
 import EditChapters from "./components/teacher/EditChapters";
 import EditCourse from "./components/teacher/EditCourse";
@@ -72,11 +70,6 @@ function App() {
         {/* List Courses */}
         <Route path="/all-courses" element={<AllCourses/>}></Route>
         <Route path="/teachers" element={<HomeTeachers/>}></Route>
-        <Route path="/category-courses" element={<CategoryCourses/>}></Route>
-
-
-        <Route path="/try" element={<Try/>}></Route>
-
 
       </Routes>
       <Footer/>

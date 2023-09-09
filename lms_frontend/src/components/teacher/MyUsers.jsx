@@ -11,6 +11,7 @@ const MyUsers = () => {
 
     // fetch students and courses where they have registered when we load
     useEffect(()=>{
+        document.title = "LMS | My Users";
         try {
             axios.get(baseUrl+'/fetch-all-enroll-students/'+teacherId)
             .then((res) => {
@@ -49,10 +50,9 @@ const MyUsers = () => {
                                     </thead>
                                     <tbody>
                                         {studentData.map((row,index)=>
-                                             <>
                                                 <tr key={index} className="border-b dark:border-neutral-500">
-                                                    <td key={index} className="whitespace-nowrap  px-6 py-4 text-blue-700">
-                                                         <Link to={'/view-student/'+ row.student.id}>{row.student.full_name}</Link>
+                                                    <td className="whitespace-nowrap  px-6 py-4">
+                                                         {row.student.full_name}
                                                     </td>
 
                                                     <td  className="whitespace-nowrap  px-6 py-4 flex items-center justify-center">
@@ -67,7 +67,6 @@ const MyUsers = () => {
                                                         {row.course.title}
                                                     </td>
                                                 </tr> 
-                                            </>
                                         )}
                                     </tbody>
                                 </table>

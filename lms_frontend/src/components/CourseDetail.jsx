@@ -185,7 +185,7 @@ const CourseDetail = () => {
             <p className="font-bold mb-2">Rating: 4/5</p>
             {
               enrollStatus === 'success' && userLoginStatus === 'success' &&
-              <p><span>You are already enrolled in this course.</span></p>
+              <p><span className="mb-2">You are already enrolled in this course.</span></p>
             }
             {
               userLoginStatus === 'success' && enrollStatus !== 'success' &&
